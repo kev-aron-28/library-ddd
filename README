@@ -36,6 +36,12 @@ El proyecto utiliza PostgreSQL como base de datos.
 docker-compose up -d
 ```
 
+Con la base de datos ejecutandose,
+ejecuta prisma
+```bash
+ npx prisma migrate dev --name init
+```
+
 # Tecnologías Utilizadas
 
 Este proyecto utiliza diversas tecnologías y herramientas para su desarrollo y funcionamiento.

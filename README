@@ -1,0 +1,86 @@
+# library-ddd
+
+Este es un proyecto para un sistema de gestión de biblioteca utilizando el patrón de diseño DDD (Domain-Driven Design).
+
+## Contenido
+
+- [Instalación](#instalación)
+- [Ejecución del backend](#ejecución-del-backend)
+- [Configuración de base de datos](#configuración-de-base-de-datos)
+- [Tecnologías Utilizadas](#tecnologías-utilizadas)
+- [Rutas](#rutas)
+- [Licencia](#licencia)
+
+## Instalación
+
+```bash
+git clone <URL_DEL_REPOSITORIO>
+cd library-ddd
+
+Instala las dependencias
+npm install
+```
+
+## Ejecución del backend
+
+Para iniciar el backend ejecuta los siguientes comandos
+```bash
+npm run dev:backoffice:backend
+npm run dev:library:backend
+```
+
+## Configuración de base de datos
+
+El proyecto utiliza PostgreSQL como base de datos.
+```bash
+docker-compose up -d
+```
+
+# Tecnologías Utilizadas
+
+Este proyecto utiliza diversas tecnologías y herramientas para su desarrollo y funcionamiento.
+
+## Tecnologías Principales
+
+### Node.js
+
+Node.js es un entorno de ejecución de JavaScript basado en el motor V8 de Google. Es utilizado para construir aplicaciones de red rápidas y escalables.
+
+### TypeScript
+
+TypeScript es un superconjunto tipado de JavaScript que se compila a JavaScript puro. Proporciona tipos estáticos para mejorar la productividad y la calidad del código en grandes proyectos.
+
+### Express
+
+Express es un framework web rápido, minimalista y flexible para Node.js. Se utiliza para construir APIs y aplicaciones web.
+
+### Prisma
+
+Prisma es una herramienta de base de datos ORM (Object-Relational Mapping) moderna para Node.js y TypeScript. Simplifica la interacción con la base de datos y mejora la seguridad de las consultas.
+
+### PostgreSQL
+
+PostgreSQL es un sistema de gestión de bases de datos relacional de código abierto y potente. Es utilizado como la base de datos principal para almacenar y gestionar los datos del sistema de gestión de biblioteca.
+
+### Cucumber
+
+Cucumber es una herramienta de prueba de software que admite BDD (Behavior-Driven Development). Se utiliza para escribir y ejecutar pruebas de aceptación automatizadas en lenguaje natural.
+
+## Otras Tecnologías y Herramientas
+
+### npm
+
+npm es el sistema de gestión de paquetes para JavaScript. Se utiliza para instalar y administrar las dependencias del proyecto.
+
+### Docker
+
+Docker es una plataforma de contenedores que simplifica el desarrollo, implementación y ejecución de aplicaciones mediante la virtualización a nivel de sistema operativo.
+
+### TypeScript Compiler (`tsc`)
+
+El compilador TypeScript (`tsc`) convierte el código TypeScript en JavaScript compatible con versiones anteriores.
+
+# Rutas
+
+La pagina principal del backoffice es: http://localhost:3000/backoffice
+La pagina principal de la libreria es: http://localhost:3001/

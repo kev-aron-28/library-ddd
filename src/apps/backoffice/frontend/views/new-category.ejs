@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Nueva Categoría</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/js/uuid.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 8px;
+        }
+
+        input[type="text"], button {
+            padding: 10px;
+            margin-bottom: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Crear una nueva categoría</h1>
+    <form action="/backoffice/categories/new" method="POST" onsubmit="generateUUID()">
+      <div>
+        <label for="name">Nombre:</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div>
+        <label for="id">UUID:</label>
+        <input type="text" id="id" name="id" readonly>
+        <button type="button" onclick="generateUUID('id')">Generar UUID</button>
+      </div>
+      <div>
+        <button type="submit">Crear Categoría</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

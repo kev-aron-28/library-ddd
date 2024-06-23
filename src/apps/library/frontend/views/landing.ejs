@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Library Landing Page</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .search-bar {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .search-bar input[type="text"] {
+            width: 60%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .search-bar button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #0073e6;
+            color: white;
+            cursor: pointer;
+        }
+
+        .search-bar button:hover {
+            background-color: #005bb5;
+        }
+
+        .book-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .book-item {
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            background-color: #fafafa;
+            margin-bottom: 15px;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .book-item:hover {
+            background-color: #f0f4ff;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .book-item h3 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .book-item p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        .no-results {
+            text-align: center;
+            font-size: 18px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bienvenido a la Biblioteca</h1>
+        <div class="search-bar">
+            <form action="/" method="GET">
+                <input type="text" name="search" value="<%= searchQuery %>" placeholder="Buscar libros o autores...">
+                <button type="submit">Buscar</button>
+            </form>
+        </div>
+        <% if (books.length > 0) { %>
+            <ul class="book-list">
+                <% books.forEach(book => { %>
+                    <li class="book-item">
+                        <h3><%= book.title %></h3>
+                        <p><strong>Autor:</strong> <%= book.author.name %></p>
+                        <p><strong>ISBN:</strong> <%= book.isbn %></p>
+                        <p><strong>Categorías:</strong> <%= book.categories.map(category => category.name).join(', ') %></p>
+                        <p><strong>Copias: <%= book.copies.length %></strong></p>
+                    </li>
+                <% }); %>
+            </ul>
+        <% } else { %>
+            <p class="no-results">No se encontraron libros con el criterio proporcionado.</p>
+        <% } %>
+    </div>
+</body>
+</html>

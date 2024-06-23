@@ -1,0 +1,97 @@
+services:
+
+
+  Apps.backoffice.controllers.HealthGetController:
+    class: ../controllers/HealthGetController
+    arguments: []
+
+
+  Apps.backoffice.controllers.CreateCategoryController:
+    class: ../controllers/category/CreateCategoryController
+    arguments: ["@Contexts.Backoffice.Category.application.Create.CategoryCreator"]
+
+
+  Apps.backoffice.controllers.CreateAuthorController:
+    class: ../controllers/authors/CreateAuthorController
+    arguments: ["@Context.Backoffice.Author.application.Create.AuthorCreator"]
+
+
+  Apps.backoffice.controllers.CreateBookController:
+    class: ../controllers/books/CreateBookController
+    arguments: ["@Context.Backoffice.Book.application.Create.BookCreator"]
+  Apps.backoffice.controllers.RenderCreateBookController:
+    class: ../controllers/books/RenderCreateBookController
+    arguments: [
+      "@Context.Backoffice.Author.application.GetAll.AuthorGetter", 
+      "@Contexts.Backoffice.Category.application.GetAll.CategoryGetter"
+      ]
+  Apps.backoffice.controllers.FindBookController:
+    class: ../controllers/books/FindBookController
+    arguments: ["@Context.Backoffice.Book.application.Find.BookFinder"]
+  Apps.backoffice.controllers.DetailBookController:
+    class: ../controllers/books/DetailBookController
+    arguments: ["@Context.Backoffice.Book.application.Find.BookFindById"]
+  Apps.backoffice.controllers.LoanBookController:
+    class: ../controllers/books/LoanBookController
+    arguments: ["@Context.Backoffice.Book.application.Loan.BookLoaner"]
+  Apps.backoffice.controllers.ReturnBookController:
+    class: ../controllers/books/ReturnBookController
+    arguments: ["@Context.Backoffice.Book.application.ReturnB.BookReturner"]
+
+
+
+  Apps.backoffice.controllers.MainInfoController:
+    class: ../controllers/dashboard/MainInfoController
+    arguments: [
+      "@Context.Backoffice.Book.application.GetAll.BookGetter",
+      "@Context.Backoffice.Author.application.GetAll.AuthorGetter",
+      "@Contexts.Backoffice.Category.application.GetAll.CategoryGetter"
+    ]
+
+
+  Contexts.Backoffice.Category.infra.CategoryRepository:
+    class: ../../../../Contexts/Backoffice/Category/infra/PrismaCategoryRepository
+    arguments: []
+  Context.Backoffice.Author.infra.AuthorRepository:
+    class: ../../../../Contexts/Backoffice/Author/infra/PrismaAuthorRepository
+    arguments: []
+  Context.Backoffice.Book.infra.BookRepository:
+    class: ../../../../Contexts/Backoffice/Book/infra/PrismaBookRepository
+
+
+
+  Contexts.Backoffice.Category.application.Create.CategoryCreator:
+    class: ../../../../Contexts/Backoffice/Category/application/Create/CategoryCreator
+    arguments: ["@Contexts.Backoffice.Category.infra.CategoryRepository"]
+
+  Contexts.Backoffice.Category.application.GetAll.CategoryGetter:
+    class: ../../../../Contexts/Backoffice/Category/application/GetAll/CategoryGetter
+    arguments: ["@Contexts.Backoffice.Category.infra.CategoryRepository"]
+
+
+  Context.Backoffice.Author.application.Create.AuthorCreator:
+    class: ../../../../Contexts/Backoffice/Author/application/Create/AuthorCreator
+    arguments: ["@Context.Backoffice.Author.infra.AuthorRepository"]
+  Context.Backoffice.Author.application.GetAll.AuthorGetter:
+    class: ../../../../Contexts/Backoffice/Author/application/GetAll/AuthorGetter
+    arguments: ["@Context.Backoffice.Author.infra.AuthorRepository"]
+
+
+  Context.Backoffice.Book.application.Create.BookCreator:
+    class: ../../../../Contexts/Backoffice/Book/application/Create/BookCreator
+    arguments: ["@Context.Backoffice.Book.infra.BookRepository"]
+  Context.Backoffice.Book.application.GetAll.BookGetter:
+    class: ../../../../Contexts/Backoffice/Book/application/GetAll/BookGetter
+    arguments: ["@Context.Backoffice.Book.infra.BookRepository"]
+  Context.Backoffice.Book.application.Find.BookFinder:
+    class: ../../../../Contexts/Backoffice/Book/application/Find/BookFinder
+    arguments: ["@Context.Backoffice.Book.infra.BookRepository"]
+  Context.Backoffice.Book.application.Find.BookFindById:
+    class: ../../../../Contexts/Backoffice/Book/application/Find/BookFindById
+    arguments: ["@Context.Backoffice.Book.infra.BookRepository"]
+  Context.Backoffice.Book.application.Loan.BookLoaner:
+    class: ../../../../Contexts/Backoffice/Book/application/Loan/BookLoaner
+    arguments: ["@Context.Backoffice.Book.infra.BookRepository"]
+  Context.Backoffice.Book.application.ReturnB.BookReturner:
+    class: ../../../../Contexts/Backoffice/Book/application/Return/BookReturner
+    arguments: ["@Context.Backoffice.Book.infra.BookRepository"]

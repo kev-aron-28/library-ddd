@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle del Libro</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .book-details, .book-loans, .book-copies {
+            margin-bottom: 30px;
+        }
+
+        .book-details h2, .book-loans h2, .book-copies h2 {
+            font-size: 24px;
+            color: #0073e6;
+            margin-bottom: 15px;
+        }
+
+        .book-details p, .book-loans p, .book-copies p {
+            margin: 10px 0;
+            color: #555;
+        }
+
+        .book-details strong, .book-loans strong, .book-copies strong {
+            color: #333;
+        }
+
+        .loan-item, .copy-item {
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            background-color: #fafafa;
+            margin-bottom: 15px;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .loan-item:hover, .copy-item:hover {
+            background-color: #f0f4ff;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .loan-item p, .copy-item p {
+            margin: 8px 0;
+        }
+
+        .copy-item form {
+            margin-top: 10px;
+        }
+
+        .copy-item input[type="text"], .copy-item input[type="date"], .copy-item button {
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: calc(100% - 22px);
+        }
+
+        .copy-item button {
+            background-color: #0073e6;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .copy-item button:hover {
+            background-color: #005bb5;
+        }
+
+        .return-btn {
+            background-color: #e60000;
+        }
+
+        .return-btn:hover {
+            background-color: #cc0000;
+        }
+    </style>
+    <script src="/js/uuid.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Detalle del Libro</h1>
+        <div class="book-details">
+            <h2>Detalles del Libro</h2>
+            <p><strong>Título:</strong> <%= book.title %></p>
+            <p><strong>Autor:</strong> <%= book.author.name %></p>
+            <p><strong>ISBN:</strong> <%= book.isbn %></p>
+            <p><strong>Categorías:</strong> <%= book.categories.map(category => category.name).join(', ') %></p>
+            <p><strong>Número de copias:</strong> <%= book.copies.length %></p>
+        </div>
+        <div class="book-loans">
+            <h2>Préstamos</h2>
+            <% if (book.loans.length > 0) { %>
+                <% book.loans.forEach(loan => { %>
+                    <div class="loan-item">
+                        <p><strong>ID del préstamo:</strong> <%= loan.id %></p>
+                        <p><strong>Fecha de préstamo:</strong> <%= new Date(loan.loanDate).toLocaleDateString() %></p>
+                        <% if (loan.returned) { %>
+                            <p><strong>Fecha de devolución:</strong> <%= new Date(loan.returnDate).toLocaleDateString() %></p>
+                        <% } else { %>
+                            <form action="/backoffice/books/loans/<%= loan.id %>/return" method="POST">
+                                <button type="submit" class="return-btn">Devolver</button>
+                            </form>
+                        <% } %>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <p>No hay préstamos para este libro.</p>
+            <% } %>
+        </div>
+        <div class="book-copies">
+            <h2>Copias Disponibles</h2>
+            <% const availableCopies = book.copies.filter(copy => copy.loans.length === 0 || copy.loans.every(loan => loan.returned)); %>
+            <% if (availableCopies.length > 0) { %>
+                <% availableCopies.forEach(copy => { %>
+                    <div class="copy-item">
+                        <p><strong>ID de la copia:</strong> <%= copy.id %></p>
+                        <p><strong>Formato:</strong> <%= copy.format %></p>
+                        <p><strong>Ubicación:</strong> <%= copy.location ? copy.location : 'No especificada' %></p>
+                        <form action="/backoffice/books/loans" method="POST">
+                            <input type="hidden" name="book" value="<%= book.id %>">
+                            <input type="hidden" name="copy" value="<%= JSON.stringify(copy) %>">
+                            <input type="hidden" name="id" class="loanId" value="">
+                            <label for="loanDate">Fecha de inicio del préstamo:</label>
+                            <input type="date" name="loanDate" required>
+                            <button type="submit">Prestar</button>
+                        </form>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <p>No hay copias disponibles para préstamo.</p>
+            <% } %>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loanForms = document.querySelectorAll('.copy-item form');
+            loanForms.forEach(form => {
+                const loanIdField = form.querySelector('.loanId');
+                loanIdField.value = uuidv4();
+            });
+        });
+    </script>
+</body>
+</html>

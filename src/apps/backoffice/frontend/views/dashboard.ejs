@@ -1,0 +1,153 @@
+<!-- index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        li a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: #333;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        li a:hover {
+            background-color: #ccc;
+            color: #fff;
+        }
+
+        .section {
+            margin-top: 30px;
+        }
+
+        .section h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .section ul {
+            margin-top: 0;
+        }
+
+        .section li {
+            margin-bottom: 8px;
+        }
+
+        .search-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .search-section form {
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .search-section input[type="text"] {
+            padding: 8px;
+            font-size: 16px;
+            width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        .search-section button {
+            padding: 8px 12px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .search-section button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Panel</h1>
+
+        <div class="search-section">
+            <h2>Buscar Libro</h2>
+            <form action="/backoffice/books/search" method="POST">
+                <input type="text" name="key" placeholder="Enter ISBN | Author | Title" required>
+                <button type="submit">Buscar</button>
+            </form>
+        </div>
+
+        <ul>
+            <li><a href="/backoffice/books/new">Crear Libro</a></li>
+            <li><a href="/backoffice/authors/new">Crear Autor</a></li>
+            <li><a href="/backoffice/categories/new">Crear Categoría</a></li>
+        </ul>
+
+        <div class="section">
+            <h2>Autores Disponibles</h2>
+            <ul>
+                <% authors.forEach(author => { %>
+                    <li><%= author.name %> (ID: <%= author.id %>)</li>
+                <% }); %>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Categorías Disponibles</h2>
+            <ul>
+                <% categories.forEach(category => { %>
+                    <li><%= category.name %> (ID: <%= category.id %>)</li>
+                <% }); %>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Libros Disponibles</h2>
+            <ul>
+                <% books.forEach(book => { %>
+                    <li><%= book.title %> - <%= book.author.name%> (ISBN: <%= book.isbn %>) | Copias: <%= book.copies.length %></li>
+                <% }); %>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

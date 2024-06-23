@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crear Nuevo Autor</title>
+  <script src="/js/uuid.js"></script>
+  <style>
+    /* Estilos generales */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Estilos para el contenedor principal */
+    .container {
+      max-width: 600px;
+      margin: 20px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Estilos para el encabezado */
+    h1 {
+      font-size: 24px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    /* Estilos para el formulario */
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Estilos para las etiquetas */
+    label {
+      margin-bottom: 8px;
+    }
+
+    /* Estilos para los campos de texto */
+    input[type="text"] {
+      padding: 10px;
+      margin-bottom: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    /* Estilos para los botones */
+    button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    /* Estilos cuando el mouse pasa sobre el botón */
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Crear un nuevo autor</h1>
+    <form action="/backoffice/authors/new" method="POST">
+      <div>
+        <label for="name">Nombre:</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div>
+        <label for="id">UUID:</label>
+        <input type="text" id="id" name="id" readonly>
+        <button type="button" onclick="generateUUID('id')">Generar UUID</button>
+      </div>
+      <div>
+        <button type="submit">Crear Autor</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

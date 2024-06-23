@@ -1,0 +1,17 @@
+services:
+  Apps.library.controllers.LandingController:
+    class: ../controllers/LandingController
+    arguments: [
+      "@Context.Library.Book.application.Find.BookFinder",
+      "@Context.Library.Book.application.GetAll.BookGetter"
+    ]
+  Context.Library.Book.infra.BookRepository:
+    class: ../../../../Contexts/Library/Book/infra/PrismaBookRepository
+
+  Context.Library.Book.application.Find.BookFinder:
+    class: ../../../../Contexts/Library/Book/application/Find/BookFinder
+    arguments: ["@Context.Library.Book.infra.BookRepository"]
+
+  Context.Library.Book.application.GetAll.BookGetter:
+    class: ../../../../Contexts/Library/Book/application/GetAll/BookGetter
+    arguments: ["@Context.Library.Book.infra.BookRepository"]
